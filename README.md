@@ -3,6 +3,7 @@
 This project is a **Discounted Cash Flow (DCF)** analysis web application that allows users to input stock ticker symbols (e.g., `AAPL`, `NVDA`) and receive projections on a company’s free cash flow, weighted average cost of capital (WACC), Altman Z-score, and overall discounted cash flow analysis.
 
 [Website](https://dcfer.onrender.com/)
+<Take 30s for server to boot>
 
 
 ![Alt text](home.png)
