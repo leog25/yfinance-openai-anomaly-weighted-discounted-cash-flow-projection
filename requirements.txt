@@ -3,3 +3,4 @@ yfinance
 yahoo_fin
 openai
 python-dotenv
+gunicorn
