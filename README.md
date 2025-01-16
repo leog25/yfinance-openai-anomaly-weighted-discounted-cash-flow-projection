@@ -6,7 +6,7 @@ This project is a **Discounted Cash Flow (DCF)** analysis web application that a
 ![Alt text](home.png)
 ![Alt text](use.png)
 
-`E = mc^2`
+
 ## Key Features
 
 - **Stock Data Integration:** Utilizes Yahoo Finance API for real-time stock data and financial metrics.
@@ -101,6 +101,17 @@ Ensure you have the following installed:
 | Altman Z-Score   | 2.5 (Moderate Risk) |
 
 ---
+
+## Math
+Used standard Discounted Cash Flow calculation. Free cash flow projection use 4-year historical average growth rate to project a baseline free cash flow projet for the next 4 years. 
+`n = <the year into projection>`
+`<FCF n> = <Present FCF 0> * (1 + average_growth)^n`
+
+Through sentiment analysis, growth multipliers and growth duration using Openai will serve as weights in determining a weighted free cash flow projection.
+`<Weighted FCF n> = <FCF n> * <growth multiplier for n> `
+
+---
+
 
 ## Customization
 
