@@ -6,7 +6,7 @@ This project is a **Discounted Cash Flow (DCF)** analysis web application that a
 ![Alt text](home.png)
 ![Alt text](use.png)
 
-
+`E = mc^2`
 ## Key Features
 
 - **Stock Data Integration:** Utilizes Yahoo Finance API for real-time stock data and financial metrics.
