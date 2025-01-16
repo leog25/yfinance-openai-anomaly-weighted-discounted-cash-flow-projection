@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETF Stats Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/style.css">
+</head>
+
+<body>
+    <main>
+        
+        <div class="spline-background">
+            <spline-viewer url="https://prod.spline.design/WupTAroARxI3C6-E/scene.splinecode"></spline-viewer>
+        </div>
+
+        <div class="grid-container">
+            <!-- Title -->
+            <div class="grid-item title" style="grid-column: 2; grid-row: 1;">
+                <h2>< DCFer ></h2>
+            </div>
+
+            <!-- Input Field -->
+            <div class="grid-item input-field" style="grid-column: 2; grid-row: 2;">
+                <input type="text" placeholder=" e.g. AAPL,NVDA" class="input-box">
+            </div>
+
+            <!-- Enter Button -->
+            <div class="grid-item button" style="grid-column: 3; grid-row: 2;">
+                <button class="btn" id="move-up-button">Enter</button>
+            </div>
+        </div>
+    </main>
+    <div id="loading-spinner" class="spinner" style="display: none;"></div>
+
+    <footer>
+        <p>&copy; 2025 Leonardo G. All Rights Reserved.</p>
+    </footer>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.59/build/spline-viewer.js"></script>
+    <script src="static/script.js"></script>
+</body>
+</html>

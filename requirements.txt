@@ -1,0 +1,5 @@
+Flask
+yfinance
+yahoo_fin
+openai
+python-dotenv
