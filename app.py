@@ -7,7 +7,7 @@ import os
 
 openai = OpenAI(
     api_key = os.getenv("OPENAI_API_KEY")
-)
+    )
 
 app = Flask(__name__)
 
@@ -104,9 +104,13 @@ def main(ticker, data):
     if not quote_type == "ETF" or not legal_type == "Exchange Traded Fund":
 
         balance_sheet = ticker.balance_sheet
-        debt_value = balance_sheet.loc['Long Term Debt'].dropna().iloc[0]
+        debt_value = balance_sheet.loc['Long Term Debt And Capital Lease Obligation'].dropna().iloc[0]
         income_statement = ticker.financials
-        interest_expense = income_statement.loc['Interest Expense'].dropna().iloc[0]
+        try:
+            interest_expense = income_statement.loc['Interest Expense'].dropna().iloc[0]
+        except KeyError:
+            interest_expense = 0
+        print(interest_expense)
         cost_of_debt = interest_expense / debt_value
         pre_tax_income = income_statement.loc['Pretax Income'].dropna().iloc[0]
         tax_expense = income_statement.loc['Tax Provision'].dropna().iloc[0]
@@ -144,10 +148,12 @@ def get_weights(openai, news_articles, tick):
         response = openai.chat.completions.create(
             messages = [{"role": "assistant", "content": prompt}],
             model="gpt-4",
-            max_tokens=500,
+            max_tokens=600,
             temperature=0.2 
         )
         output = response.choices[0].message.content.strip()
+
+        print(output)
         
     except Exception as e:
         print(f"Error: {e}")
@@ -194,6 +200,7 @@ def main2(tick, data):
         news_articles.append(headline['summary'])
 
     output = get_weights(openai, news_articles, tick)
+    
 
 
     try:
@@ -205,7 +212,6 @@ def main2(tick, data):
         print("Error: The API response could not be parsed as JSON. Check the response format.")
 
 
-    
     average_growth = get_fcf_growth(ticker)
     data.update({"Average Growth Rate": round(average_growth, 2)})
     present_fcf = ticker.cash_flow.loc['Free Cash Flow'].dropna().iloc[0]

@@ -9,8 +9,6 @@ document.addEventListener('DOMContentLoaded', function () {
             moved = true;
         }
     });
-
-    
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -24,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return; 
         }
 
-     
         if (currentBox) {
             currentBox.classList.remove('visible');
             setTimeout(() => {
@@ -38,11 +35,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function sendDataToFlask(userInput) {
         try {
-          
             const spinner = document.getElementById('loading-spinner');
+            const loveGif = document.getElementById('loveGif');
             spinner.style.display = 'block';
-    
-           
+
+
+            if (userInput.toLowerCase() === 'uber') {
+                loveGif.classList.add('visible');
+            }
+
             const response = await fetch('/process', {
                 method: 'POST',
                 headers: {
@@ -50,16 +51,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify({ user_input: userInput })
             });
-    
-            
+
             spinner.style.display = 'none';
-    
-          
+
+            if (userInput.toLowerCase() === 'uber') {
+                setTimeout(() => {
+                    loveGif.classList.remove('visible');
+                }, 5000); 
+            }
+
             const result = await response.json();
-    
-          
+
             const storedJson = result;
-    
+
             createNewBox(storedJson);
         } catch (error) {
             console.error('Error:', error);
@@ -68,14 +72,11 @@ document.addEventListener('DOMContentLoaded', () => {
             spinner.style.display = 'none'; 
         }
     }
-    
-    
+
     function createNewBox(data) {
-   
         const box = document.createElement('div');
         box.classList.add('fading-box');
-    
-     
+
         let content = `<div class="content-wrapper">`;
         for (const key in data) {
             if (data.hasOwnProperty(key)) {
@@ -88,58 +89,51 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         content += `</div>`;
-    
-   
+
         box.innerHTML = content;
-    
-    
+
         const main = document.querySelector('main');
         if (main) {
             main.appendChild(box);
         }
-    
-     
+
         setTimeout(() => {
             box.classList.add('visible');
         }, 10);
-    
-      
+
         currentBox = box;
-    
-      
+
         setTimeout(() => {
             startTypingAnimation();
         }, 3000); 
     }
-    
+
     async function startTypingAnimation() {
         const contentItems = document.querySelectorAll('.content-item');
-        
+
         for (const item of contentItems) {
             const titleElement = item.querySelector('.typed-title');
             const textElement = item.querySelector('.typed-text');
-    
+
             await typeElement(titleElement, 10);  
             await typeElement(textElement, 10); 
         }
     }
-    
+
     function typeElement(element, speed) { 
         return new Promise((resolve) => {
             const fullText = element.getAttribute('data-content');
             element.textContent = '';
             let index = 0;
-    
-      
+
             element.classList.add('show-cursor');
-    
+
             function typeCharacter() {
                 if (index < fullText.length) {
                     element.textContent += fullText.charAt(index);
                     index++;
                     setTimeout(typeCharacter, speed);  
                 } else {
-            
                     element.classList.remove('show-cursor');
                     resolve();  
                 }
@@ -147,5 +141,4 @@ document.addEventListener('DOMContentLoaded', () => {
             typeCharacter();
         });
     }
-    
 });
