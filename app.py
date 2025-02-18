@@ -87,7 +87,7 @@ def calculate_wacc(equity, debt, cost_of_equity, cost_of_debt, tax_rate):
 def main(ticker, data):
     beta = ticker.info.get("beta") or ticker.info.get("beta3Year") or 1
 
-    risk_free_rate = yf.Ticker("^TNX").history(period="1d")['Close'].iloc[-1] / 100  # Convert to decimal
+    risk_free_rate = yf.Ticker("^TNX").history(period="5d")['Close'].iloc[-1] / 100  
     sp500 = yf.Ticker("^GSPC")
     data1 = sp500.history(period="5y")
     start_price = data1['Close'].iloc[0]  
